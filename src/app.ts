@@ -12,22 +12,8 @@ import { errorHandler, NotFoundError } from '@tmavisek/common';
 
 const app: Application = express ();
 
-const options: cors.CorsOptions = {
-    allowedHeaders: [
-      'Origin',
-      'X-Requested-With',
-      'Content-Type',
-      'Accept',
-      'X-Access-Token',
-    ],
-    credentials: true,
-    methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    origin: process.env.CLIENT_URL,
-    preflightContinue: false,
-};
-  
 //use cors middleware
-app.use(cors(options));
+app.use(cors());
 
 app.set('trust proxy', true);
 app.use(json());

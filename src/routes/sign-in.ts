@@ -22,7 +22,11 @@ router.post(
     async (req: Request, res: Response) => {
         const { email, password } = req.body;
         const userRepository = getRepository(User);
-        const existingUser = await userRepository.findOne({ email });
+        const existingUser = await userRepository.createQueryBuilder("user")
+            .where("user.email = :email")
+            .addSelect("user.password")
+            .setParameters({ email })
+            .getOne();
         if (!existingUser) {
             throw new BadRequestError('Invalid credentials');
         }
